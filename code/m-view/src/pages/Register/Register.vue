@@ -16,13 +16,19 @@
         <input type="password" placeholder="密码" v-model="userInfo.password">
       </p>
       <p>
+        <i class="iconfont icon-unie614"></i>
+        <input type="password" placeholder="确认密码" v-model="userInfo.sure_password">
+      </p>
+      <p>
         <i class="iconfont icon-anquan"></i>
         <input type="text" placeholder="请输入图片中的文字" v-model="userInfo.code">
         <img src="http://upload.jianshu.io/image_captchas/67b2da98-55b8-43fa-aa33-fe7763fa23f6.jpg" height="45px" width="100px">
       </p>
       <p>
-        <i class="iconfont icon-anquan"></i>
-        <mt-button class="input-btn" @click.native="open('birthday')" size="large">选择出生日期</mt-button>
+        <mt-button class="input-btn" @click.native="open('birthday')" size="large">
+        <!-- <i class="iconfont icon-unie614"></i> -->
+          选择出生日期
+        </mt-button>
         <mt-datetime-picker
           ref="birthday"
           type="date"
@@ -35,20 +41,7 @@
           @confirm="handleChange">
         </mt-datetime-picker>
       </p>
-      <p>
-        <i class="iconfont icon-anquan"></i>
-        <mt-button class="input-btn" @click.native="open('entry_year')" size="large">入学年份</mt-button>
-        <mt-datetime-picker
-          ref="entry_year"
-          type="year"
-          v-model="userInfo.entry_year"
-          :startDate="startDate"
-          :endDate="endDate"
-          year-format="{value} 年"
-          @confirm="handleChange">
-        </mt-datetime-picker>
-      </p>
-      <p class="page-picker-desc">入学年份: {{ userInfo.entry_year }}</p>
+      <p class="page-picker-desc entry_year">入学年份: {{ userInfo.entry_year }}</p>
 
       <div class="page-picker-wrapper">
         <mt-picker :slots="yearSlot" @change="onYearChange" :visible-item-count="3"></mt-picker>
@@ -87,8 +80,9 @@
           phone: '',
           username: '',
           password: '',
+          sure_password: '',
           code: '',
-          birthday: new Date(),
+          birthday: '',
           entry_year: ''
         }
       }
@@ -121,6 +115,11 @@
         } else if (!this.userInfo.password) {
           Toast({
             message: '密码不能为空',
+            iconClass: 'iconfont icon-cuowu'
+          })
+        } else if (this.userInfo.password !== this.userInfo.sure_password) {
+          Toast({
+            message: '两次密码不一致',
             iconClass: 'iconfont icon-cuowu'
           })
         } else if (!this.userInfo.code) {
@@ -168,7 +167,25 @@
       color:#969696;
     }
     .input-btn{
-      margin-top: 0px
+      margin-top: 0px;
+      border-radius: 0px;
+      box-shadow: 0 0 0px #b8bbbf;
+      width: 100%;
+      height: 48px;
+      margin-bottom: 0;
+      text-align: center;
+      border:1px solid #C8C8C8;
+      border-bottom:none;
+      vertical-align: middle;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      font-size: $fontSize2;
+      background-color: #F5F5F5;
+      outline: none;
+    }
+    .entry_year{
+      display: block;
     }
     h3{
       margin-top: 70px;
