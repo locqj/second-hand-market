@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <p class="line"></p>
     <h4>| 物品</h4>
     <loading></loading>
@@ -40,6 +40,9 @@
 
 <style lang='scss' scoped>
   @import "../assets/css/color.scss";
+  .app{
+    background-color: #FFF;
+  }
   h4{
     background-color: #F0F0F0;
     padding:15px 18px;
@@ -48,11 +51,13 @@
     height: 5px;
   }
   .article-list{
-
+    background-color: #F0F0F0;
     li{
       position: relative;
-      border-bottom: 1px solid #ddd;
-
+      background-color: #fff;
+      padding-left: 2%;
+      padding-right: 2%;
+      border-bottom: 5px solid #F0F0F0;
       >div{
         padding: 20px 95px 25px 0;
       }
@@ -89,6 +94,8 @@
     .statistics{
       padding-top: 0px;
       color: $fontColor3;
+      border-top: 1.5px solid #ddd;
+      
       i{
         font-size: $fontSize3;
       }
@@ -109,7 +116,7 @@
         margin-top: 9px;
         color: #26a2ff;
         font-size: $fontSize2;
-        font-weight: bold
+        font-weight: bold;
       }
       span{
         font-size: $fontSize2;

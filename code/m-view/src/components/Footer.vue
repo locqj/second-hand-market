@@ -1,46 +1,48 @@
 <template>
-  <mt-tabbar fixed v-if="footerHide" v-model="selected">
-    <!-- <mt-tab-item id="/home">
-      <i slot="icon" class="iconfont icon-shouye-copy"></i>
-      首页
-      <router-link to="/home"></router-link>
-    </mt-tab-item>
-    <mt-tab-item id="/write">
-      <i slot="icon" class="iconfont icon-iconfontcolor32"></i>
-      写文章
-      <router-link to="/write"></router-link>
-    </mt-tab-item>
-    <mt-tab-item id="/my">
-      <i slot="icon" class="iconfont icon-wode"></i>
-      我的
-      <router-link to="/my"></router-link>
-    </mt-tab-item> -->
-    <mt-tab-item id="/my">
-      <i slot="icon" class="iconfont icon-wode"></i>
-      首页
-      <router-link to="/my"></router-link>
-    </mt-tab-item>
-    <mt-tab-item id="/my">
-      <i slot="icon" class="iconfont icon-wode"></i>
-      院系
-      <router-link to="/my"></router-link>
-    </mt-tab-item>
-    <mt-tab-item id="/my">
-      <i slot="icon" class="iconfont icon-wode"></i>
-      发布
-      <router-link to="/my"></router-link>
-    </mt-tab-item>
-    <mt-tab-item id="/my">
-      <i slot="icon" class="iconfont icon-wode"></i>
-      消息
-      <router-link to="/my"></router-link>
-    </mt-tab-item>
-    <mt-tab-item id="/my">
-      <i slot="icon" class="iconfont icon-wode"></i>
-      我的
-      <router-link to="/my"></router-link>
-    </mt-tab-item>
-  </mt-tabbar>
+  <div>
+    <mt-tabbar fixed v-if="footerHide" v-model="selected">
+      <!-- <mt-tab-item id="/home">
+        <i slot="icon" class="iconfont icon-shouye-copy"></i>
+        首页
+        <router-link to="/home"></router-link>
+      </mt-tab-item>
+      <mt-tab-item id="/write">
+        <i slot="icon" class="iconfont icon-iconfontcolor32"></i>
+        写文章
+        <router-link to="/write"></router-link>
+      </mt-tab-item>
+      <mt-tab-item id="/my">
+        <i slot="icon" class="iconfont icon-wode"></i>
+        我的
+        <router-link to="/my"></router-link>
+      </mt-tab-item> -->
+      <mt-tab-item id="/my">
+        <i slot="icon" class="iconfont icon-wode"></i>
+        首页
+        <router-link to="/my"></router-link>
+      </mt-tab-item>
+      <mt-tab-item id="/my">
+        <i slot="icon" class="iconfont icon-wode"></i>
+        院系
+        <router-link to="/my"></router-link>
+      </mt-tab-item>
+      <mt-tab-item id="/my">
+        <i slot="icon" class="iconfont icon-wode"></i>
+        发布
+        <router-link to="/my"></router-link>
+      </mt-tab-item>
+      <mt-tab-item id="/my">
+        <i slot="icon" class="iconfont icon-wode"></i>
+        消息
+        <router-link to="/my"></router-link>
+      </mt-tab-item>
+      <mt-tab-item id="/my">
+        <i slot="icon" class="iconfont icon-wode"></i>
+        我的
+        <router-link to="/my"></router-link>
+      </mt-tab-item>
+    </mt-tabbar>
+  </div>
 </template>
 
 <script>

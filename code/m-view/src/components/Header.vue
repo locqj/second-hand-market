@@ -1,15 +1,17 @@
 <template>
-  <mt-header fixed title="创作你的创作" v-if="headerHide">
-    <router-link to="/" slot="left">
-      <img src="http://upload-images.jianshu.io/upload_images/4999184-c42efdceca4a6b5f.png" alt="">
-    </router-link>
-  </mt-header>
+<mt-header :title="title">
+  <router-link :to="url" slot="left">
+    <mt-button icon="back">返回</mt-button>
+  </router-link>
+  <mt-button icon="more" slot="right"></mt-button>
+</mt-header>
 </template>
-
 <script>
   import { mapGetters } from 'vuex'
   export default {
     name: 'head',
+    props: ["title", "url"],
+    
     computed: {
       ...mapGetters([
         'headerHide'
@@ -22,24 +24,11 @@
   @import "../assets/css/color.scss";
   .mint-header{
     background-color: #FFF;
-    height: 48px;
     line-height: 48px;
     color:$fontColor1;
     box-shadow: 0px 2px 3px #EAEAEA;
-    text-align: left;
+    text-align: center;
     font-size: $fontSize3;
     color: $fontColor2;
-
-    .mint-header-button > a{
-      display: block;
-      height: 48px;
-    }
-    .mint-header-button.is-left > a{
-      padding-left: 10px;
-    }
-    img{
-      margin-top: 4px;
-      height: 42px;
-    }
   }
 </style>

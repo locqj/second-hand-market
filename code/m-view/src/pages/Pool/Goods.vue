@@ -17,6 +17,7 @@
         <!-- <mt-cell v-for="n in 4" :title="'测试 ' + n" /> -->
       </mt-tab-container-item>
     </mt-tab-container>
+    <mt-button class="join-btn" type="default" size="large">加入池子</mt-button>
   </div>
 </template>
 
@@ -52,4 +53,27 @@
 
 <style lang='scss' scoped>
   @import "../../assets/css/color.scss";
+    @media screen and (min-width:1440px){ /*大于等于1440*/
+    /*这里是特定的样式表*/
+    }
+    @media screen and (max-width:1024px){    
+    }
+    @media screen and (max-width:768px){
+      .join-btn{
+        position:fixed;
+        bottom:8%;
+      }
+    }
+    @media screen and (max-width:375px){
+      .join-btn{
+        position:fixed;
+        bottom:8.8%;
+      }
+    }
+    @media screen and (max-width:320px){
+      .join-btn{
+        position:fixed;
+        bottom:10.5%;
+      }
+    }
 </style>

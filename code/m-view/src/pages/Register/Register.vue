@@ -21,31 +21,13 @@
       </p>
       <p>
         <i class="iconfont icon-anquan"></i>
-        <input type="text" placeholder="请输入图片中的文字" v-model="userInfo.code">
-        <img src="http://upload.jianshu.io/image_captchas/67b2da98-55b8-43fa-aa33-fe7763fa23f6.jpg" height="45px" width="100px">
-      </p>
-      <p>
-        <mt-button class="input-btn" @click.native="open('birthday')" size="large">
-        <!-- <i class="iconfont icon-unie614"></i> -->
-          选择出生日期
+        <input type="text" placeholder="请输入短信验证码" v-model="userInfo.code">
+        <mt-button class="verify" @click.native="verify('birthday')">
+          获取验证码
         </mt-button>
-        <mt-datetime-picker
-          ref="birthday"
-          type="date"
-          v-model="userInfo.birthday"
-          :startDate="startDate"
-          :endDate="endDate"
-          year-format="{value} 年"
-          month-format="{value} 月"
-          date-format="{value} 日"
-          @confirm="handleChange">
-        </mt-datetime-picker>
-      </p>
-      <p class="page-picker-desc entry_year">入学年份: {{ userInfo.entry_year }}</p>
+      <!--   <img src="http://upload.jianshu.io/image_captchas/67b2da98-55b8-43fa-aa33-fe7763fa23f6.jpg" height="45px" width="100px">
+ -->      </p>
 
-      <div class="page-picker-wrapper">
-        <mt-picker :slots="yearSlot" @change="onYearChange" :visible-item-count="3"></mt-picker>
-      </div>
     </div>
     <mt-button type="primary" size="large" @click="register">注册</mt-button>
     <p class="go-register">
@@ -73,7 +55,7 @@
         endDate: new Date(),
         yearSlot: [{
           flex: 1,
-          values: ['2001', '2002', '2003', '2004', '2005', '2006', '1990', '1991', '1992', '1993', '1994', '1995'],
+          values: ['请选择', '2001', '2002', '2003', '2004', '2005', '2006', '1990', '1991', '1992', '1993', '1994', '1995'],
           className: 'slot1'
         }],
         userInfo: {
@@ -81,22 +63,14 @@
           username: '',
           password: '',
           sure_password: '',
-          code: '',
-          birthday: '',
-          entry_year: ''
+          code: ''
         }
       }
     },
     methods: {
-      open (picker) {
-        this.$refs[picker].open()
-      },
-      onYearChange (picker, values) {
-        this.userInfo.entry_year = values[0]
-      },
-      handleChange (value) {
+      verify () {
         Toast({
-          message: '已选择 ' + value.toString(),
+          message: '已发送',
           position: 'bottom'
         })
       },
@@ -184,9 +158,6 @@
       background-color: #F5F5F5;
       outline: none;
     }
-    .entry_year{
-      display: block;
-    }
     h3{
       margin-top: 70px;
       font-size: $fontSize3;
@@ -205,7 +176,16 @@
         top:1px;
         height: 46px;
       }
-
+      p .verify{
+        margin-top: 0px;
+        float: right;
+        position: absolute;
+        font-size: 14px;
+        right:1px;
+        top:1px;
+        height: 46px;
+        width: 30%
+      }
       p i{
         position: absolute;
         top: 15px;
