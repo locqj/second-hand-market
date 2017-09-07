@@ -1,5 +1,6 @@
 <template>
-  <div class="box">
+  <div>
+    <Header title="我的" url="/index"></Header>
     <div class="container">
       <top :userInfo="userInfo"></top>
     </div>
@@ -11,9 +12,10 @@
 </template>
 
 <script>
+  import Header from '@/components/Header.vue'
   import Top from './Header.vue'
   import ArticleList from '../../components/ArticleList.vue'
-  import Foot from './Footer.vue'
+  import Foot from '@/components/Footer.vue'
   export default {
     name: 'my',
     data () {
@@ -23,24 +25,25 @@
       }
     },
     mounted () {
-      const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
-      if (!userInfo) {
-        this.$router.push({path: '/login'})
-      } else {
-        this.$http.get(`http://localhost:3000/user?id=${userInfo[0].id}`)
-          .then((res) => {
-            this.userInfo = res.data[0]
-          })
-        this.$http.get(`http://localhost:3000/articles?user.id=${userInfo[0].id}`)
-          .then((res) => {
-            this.articles = res.data
-          })
-      }
+      // const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+      // if (!userInfo) {
+      //   this.$router.push({path: '/login'})
+      // } else {
+      //   this.$http.get(`http://localhost:3000/user?id=${userInfo[0].id}`)
+      //     .then((res) => {
+      //       this.userInfo = res.data[0]
+      //     })
+      //   this.$http.get(`http://localhost:3000/articles?user.id=${userInfo[0].id}`)
+      //     .then((res) => {
+      //       this.articles = res.data
+      //     })
+      // }
     },
     components: {
       Top,
       ArticleList,
-      Foot
+      Foot,
+      Header
     }
   }
 </script>

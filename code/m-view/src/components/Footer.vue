@@ -16,25 +16,25 @@
         我的
         <router-link to="/my"></router-link>
       </mt-tab-item> -->
-      <mt-tab-item id="/my">
+      <mt-tab-item id="/index">
         <i slot="icon" class="iconfont icon-wode"></i>
         首页
-        <router-link to="/my"></router-link>
+        <router-link to="/index"></router-link>
       </mt-tab-item>
-      <mt-tab-item id="/my">
+      <mt-tab-item id="/pool">
         <i slot="icon" class="iconfont icon-wode"></i>
-        院系
-        <router-link to="/my"></router-link>
+        探池
+        <router-link to="/pool"></router-link>
       </mt-tab-item>
       <mt-tab-item id="/my">
         <i slot="icon" class="iconfont icon-wode"></i>
         发布
         <router-link to="/my"></router-link>
       </mt-tab-item>
-      <mt-tab-item id="/my">
+      <mt-tab-item id="/news">
         <i slot="icon" class="iconfont icon-wode"></i>
         消息
-        <router-link to="/my"></router-link>
+        <router-link to="/news"></router-link>
       </mt-tab-item>
       <mt-tab-item id="/my">
         <i slot="icon" class="iconfont icon-wode"></i>

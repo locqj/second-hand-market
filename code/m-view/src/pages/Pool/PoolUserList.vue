@@ -6,13 +6,16 @@
 		</mt-navbar>
 		<mt-tab-container v-model="selected">
 		  <mt-tab-container-item id="1">
-		    <mt-cell title="标题文字">
-				  <span>icon 是图片</span>
+		    <mt-cell v-for="n in 120" :title="'我是小清新' + n">
+				  <span>{{n}}</span>
 				  <img slot="icon" src="../../assets/100x100.png" width="36" height="36">
 				</mt-cell>
 		  </mt-tab-container-item>
 		  <mt-tab-container-item id="2">
-		    <mt-cell v-for="n in 4" :title="'测试 ' + n" />
+		    <mt-cell v-for="n in 120" :title="'我是小可爱' + n">
+				  <span>{{n}}</span>
+				  <img slot="icon" src="../../assets/100x100.png" width="36" height="36">
+				</mt-cell>
 		  </mt-tab-container-item>
 		</mt-tab-container>
 	</div>
@@ -28,5 +31,4 @@
   }
 </script>
 <style>
-	
 </style>

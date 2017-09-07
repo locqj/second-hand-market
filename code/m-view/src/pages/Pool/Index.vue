@@ -4,6 +4,7 @@
 	<Header-img></Header-img>
 	<Pool-group></Pool-group>
 	<Goods></Goods>
+	<Foot></Foot>
 </div>
 	
 </template>
@@ -12,13 +13,16 @@
 	import Header from '@/components/Header.vue'
 	import PoolGroup from './PoolGroup.vue'
 	import Goods from './Goods.vue'
+	import Foot from '@/components/Footer.vue'
+
   export default {
   	name: 'pool',
   	components: {
   		HeaderImg,
   		Header,
   		PoolGroup,
-  		Goods
+  		Goods,
+  		Foot
   	}
   }
 </script>

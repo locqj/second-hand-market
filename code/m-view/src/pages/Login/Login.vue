@@ -1,6 +1,6 @@
 <template>
   <div class="login container">
-    <router-link class="close" to="/home" tag="span">&times;</router-link>
+    <router-link class="close" to="/index" tag="span">&times;</router-link>
     <h3 class="text-center">登录探物</h3>
     <div class="form-field">
       <p>

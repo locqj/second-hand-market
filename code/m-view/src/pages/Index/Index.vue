@@ -6,6 +6,7 @@
     <Loadmore :load="load"></Loadmore>
     <!-- 判断当前状态用户登录情况，未登录显示登录或者注册按钮在最下方 -->
     <buttons v-if="!userInfo"></buttons>
+    <foot></foot>
   </div>
 </template>
 
@@ -15,6 +16,7 @@
   import Loadmore from '../../components/LoadMore.vue'
   import Buttons from './Buttons.vue'
   import Navbar from './Navbar.vue'
+  import Foot from '@/components/Footer.vue'
   export default {
     name: 'home',
     data () {
@@ -33,7 +35,8 @@
       Banner,
       Loadmore,
       Buttons,
-      Navbar
+      Navbar,
+      Foot
     }
   }
 </script>
