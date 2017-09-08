@@ -54,9 +54,7 @@
       background-color: #fff
     }
 
-    .banner{
-      width: 100%;height:90px;
-    }
+    
     @media screen and (min-width:1440px){ /*大于等于1440*/
     /*这里是特定的样式表*/
     }
@@ -73,6 +71,9 @@
         border:1.5px solid #fff;
         border-radius: 50%;
       }
+      .banner{
+        width: 100%;height:132px;
+      }
     }
     @media screen and (max-width:375px){
       .left{
@@ -85,7 +86,9 @@
         border:1.5px solid #fff;
         border-radius: 50%;
       }
-      
+      .banner{
+        width: 100%;height:107px;
+      }
     }
     @media screen and (max-width:320px){
       .left{
@@ -97,6 +100,9 @@
         height: 35px;
         border:1.5px solid #fff;
         border-radius: 50%;
+      }
+      .banner{
+        width: 100%;height:96px;
       }
     }
 

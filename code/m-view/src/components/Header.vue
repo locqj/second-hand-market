@@ -1,5 +1,5 @@
 <template>
-<mt-header :title="title">
+<mt-header :title="title" fixed>
   <router-link :to="url" slot="left">
     <mt-button icon="back">返回</mt-button>
   </router-link>

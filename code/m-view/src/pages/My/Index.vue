@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="container-header">
     <Header title="我的" url="/index"></Header>
     <div class="container">
 	    <MyHeader :userInfo="userInfo"></MyHeader>

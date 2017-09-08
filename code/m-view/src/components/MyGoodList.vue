@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="container-header">
 		<mt-cell v-for="n in 20">
 		  <span>
 		  	<span class="money">200</span>
@@ -27,7 +27,7 @@
 </script>
 <style lang='scss' scoped>
   @import "../assets/css/color.scss";
-    .mint-cell{
+  .mint-cell{
   	min-height: 100px;
 	  img{
 	  	width: 30%;

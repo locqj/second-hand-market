@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="poollist">
 		<mt-navbar v-model="selected">
 		  <mt-tab-item id="1">发布榜</mt-tab-item>
 		  <mt-tab-item id="2">签到榜</mt-tab-item>
@@ -30,5 +30,9 @@
   	}
   }
 </script>
-<style>
+<style lang='scss' scoped>
+  @import "../../assets/css/color.scss";
+	.poollist{
+		margin-top: 10%;
+	}
 </style>

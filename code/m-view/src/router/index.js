@@ -18,6 +18,7 @@ import Pool from '@/pages/Pool/Index.vue'
 import PoolUser from '@/pages/Pool/PoolUser.vue'
 import News from '@/pages/News/Index.vue'
 import Chat from '@/pages/News/Chat.vue'
+import Send from '@/pages/Send/Index.vue'
 
 
 Vue.use(Router)
@@ -45,6 +46,7 @@ export default new Router({
     { path: '/verify', component: VerifyUser },
     { path: '/news', component: News },
     { path: '/news/chat', component: Chat },
+    { path: '/send', component: Send },
     { path: '/', redirect: '/index' },
     { path: '*', redirect: '/index' },
     { path: '/index', component: Index }, // design首页

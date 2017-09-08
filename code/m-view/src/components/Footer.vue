@@ -26,9 +26,13 @@
         探池
         <router-link to="/pool"></router-link>
       </mt-tab-item>
-      <mt-tab-item id="/my">
-        <i slot="icon" class="iconfont icon-wode"></i>
-        发布
+      <div class="send" @click="addgood">
+        <span><img src="../assets/img/add_b.png" alt=""></span>
+        <span>发布</span>
+      </div>
+      <mt-tab-item id="/my" class="">
+        <i class="iconfont add-goods" slot="icon"></i>
+        
         <router-link to="/my"></router-link>
       </mt-tab-item>
       <mt-tab-item id="/news">
@@ -49,6 +53,11 @@
   import { mapGetters } from 'vuex'
   export default {
     name: 'foot',
+    methods: {
+      addgood () {
+        window.location.href="/send"
+      }
+    },
     computed: {
       ...mapGetters([
         'selected',
@@ -82,6 +91,75 @@
 
     > .mint-tab-item.is-selected{
       background: #FFF;
+    }
+  }
+  @media screen and (max-width:768px){
+    .send{
+      width: 20%;
+      display: block;
+      position:absolute;
+      top:-22%;
+      left:40%;
+      z-index:999;
+      span:nth-child(1){
+
+        display:block;
+        img{
+          width:55%;
+          height:55%;
+          border-radius: 50%;
+          background-color: #ffda44
+        }
+      }
+      span:nth-child(2){
+        font-size:13px;
+      }
+    }
+  }
+  @media screen and (max-width:375px){
+    .send{
+      width: 20%;
+      display: block;
+      position:absolute;
+      top:-13%;
+      left:40%;
+      z-index:999;
+      span:nth-child(1){
+
+        display:block;
+        img{
+          width:55%;
+          height:55%;
+          border-radius: 50%;
+          background-color: #ffda44
+        }
+      }
+      span:nth-child(2){
+        font-size:12px;
+      }
+    }
+  }
+  @media screen and (max-width:320px){
+    .send{
+      width: 20%;
+      display: block;
+      position:absolute;
+      top:-12%;
+      left:40%;
+      z-index:999;
+      span:nth-child(1){
+
+        display:block;
+        img{
+          width:65%;
+          height:65%;
+          border-radius: 50%;
+          background-color: #ffda44
+        }
+      }
+      span:nth-child(2){
+        font-size:13px;
+      }
     }
   }
 </style>

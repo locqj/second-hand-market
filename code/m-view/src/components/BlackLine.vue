@@ -1,13 +1,13 @@
 <template>
   <div class="button-group">
-    <mt-button size="large"  type="danger">
+    <!-- <mt-button size="large"  type="danger">
       登录
       <router-link to="/login"></router-link>
     </mt-button>
     <mt-button size="large" type="primary">
       注册
       <router-link to="/register"></router-link>
-    </mt-button>
+    </mt-button> -->
   </div>
 </template>
 
@@ -20,7 +20,9 @@
 
 <style lang='scss' scoped>
   .button-group{
-    padding: 15px;
+
+    padding: 33px;
+
     button{
       margin-bottom: 10px;
     }

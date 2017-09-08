@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container-header">
 	<Header title="探池" url="/index"></Header>
 	<Header-img></Header-img>
 	<Pool-group></Pool-group>

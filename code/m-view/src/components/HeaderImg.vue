@@ -17,7 +17,7 @@
 
 <style lang='scss' scoped>
   @import "../assets/css/color.scss";
-  .header{
+    .header{
     width: 100%;
     height: 131px;
     background-color: $headerblackColor;
@@ -26,7 +26,8 @@
       height: 75px;
       border:1.5px solid #fff;
       border-radius: 50%;
-      margin: 29.5px
+      margin-left:14%;
+      margin-top:8%
     }
     .left{
       width: 57%;
@@ -37,7 +38,7 @@
       width: 100%;
       margin-top: 13%;
       margin-left: 13%;
-      font-size: $title;
+      font-size: $title1;
       max-width: 250px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -55,5 +56,4 @@
       }
     }
   }
-
 </style>
