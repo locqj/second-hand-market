@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mt-tabbar fixed v-if="footerHide" v-model="selected">
+    <mt-tabbar fixed v-if="footerHide"  v-model="selected">
       <!-- <mt-tab-item id="/home">
         <i slot="icon" class="iconfont icon-shouye-copy"></i>
         首页
@@ -32,7 +32,6 @@
       </div>
       <mt-tab-item id="/my" class="">
         <i class="iconfont add-goods" slot="icon"></i>
-        
         <router-link to="/my"></router-link>
       </mt-tab-item>
       <mt-tab-item id="/news">
@@ -53,6 +52,10 @@
   import { mapGetters } from 'vuex'
   export default {
     name: 'foot',
+    data () {
+      return {
+      }
+    },
     methods: {
       addgood () {
         window.location.href="/send"

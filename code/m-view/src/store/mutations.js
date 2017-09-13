@@ -38,7 +38,7 @@ const mutations = {
     if (path.includes('/login') || path.includes('/register')) {
       state.footerHide = false
       state.headerHide = false
-    } else if (path.includes('/article/')) {
+    } else if (path.includes('/article/') || path.includes('/buy') || path.includes('/send')) {
       state.footerHide = false
     }
   },

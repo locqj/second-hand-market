@@ -4,7 +4,8 @@
     <h4>| 物品</h4>
     <loading></loading>
     <ul class="article-list container list">
-      <router-link v-for="article in articles" :to="'/article/'+article.id" tag="li" :key="article">
+    <!-- '/article/'+article.id -->
+      <router-link v-for="article in articles" :to="'/buy'" tag="li" :key="article">
           
             <div class="title">
               <p class="avatar"><img class="img-responsive" :src="article.user.avatar" alt=""></p>
