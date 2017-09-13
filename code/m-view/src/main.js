@@ -8,6 +8,7 @@ import axios from 'axios'
 import '@/assets/js/resize.js'
 import store from './store'
 import Loading from './components/Loading'
+
 import App from './App'
 
 Vue.use(MintUI)

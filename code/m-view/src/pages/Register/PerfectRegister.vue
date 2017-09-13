@@ -40,8 +40,10 @@
         </mt-datetime-picker>
       </p>
     </div>
-    <mt-button class="button-next" type="primary" size="large" @click="register">下一步</mt-button>
-
+    
+    <mt-tabbar fixed  class="footer">
+        <mt-button size="large" type="primary" @click="register">下一步</mt-button>
+      </mt-tabbar>
   </div>
 </template>
 
@@ -235,9 +237,6 @@
       font-size: $fontSize2;
       background-color: #F5F5F5;
       outline: none;
-    }
-    .button-next{
-      bottom: 17%; margin: 0px; position: fixed; width: 92%; z-index: 10 ! important;
     }
   }
 </style>
