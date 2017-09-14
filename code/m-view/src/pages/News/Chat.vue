@@ -11,8 +11,10 @@
 		  <mt-button type="danger" class="buy">立即购买</mt-button>
 		</div>
 		<ChatList></ChatList>
-		<mt-tabbar fixed  class="footer">
-    </mt-tabbar>
+		<div  class="footer">
+      <mt-field placeholder="请输入内容" type="text" class="send_content"></mt-field>
+		  <mt-button type="primary" class="send">发送</mt-button>
+    </div>
 
 	</div>
 </template>
@@ -29,6 +31,9 @@
 <style lang='scss' scoped>
   @import "../../assets/css/color.scss";
   .goods_title{
+	  position:fixed;
+    left:0;
+    top:3%;
   	width:100%;
   	margin:5% 0 5% 0;
   	padding-top: 5%;
@@ -54,8 +59,23 @@
   		margin-top: 2%
   	}
   }
+  .footer{
+  	width:100%;
+    position:fixed;
+    left:0;
+    bottom:0;
+  	background-color: #f7f7f7;
+  	.send_content{
+			width:75%;
+  		float:left;
+  	}
+  	.send{
+  		width:25%;
+  		margin-top:1.5%;
+  		float:right;
+  	}
+  }
   .content{
   	width:100%;
-  	background-color: #f7f7f7;
   }
 </style>
