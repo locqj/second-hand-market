@@ -85,11 +85,11 @@
 <style lang='scss' scoped>
   @import "../../assets/css/color.scss";
   .person-info{
-    padding: 5% 1% 5% 1%;
+    padding: 5% 0% 5% 0%;
     position: relative;
     .intros-content{
       display: inline-block;
-      width: 160px;
+      width: 100%;
       overflow: hidden;
       text-overflow:ellipsis;
       white-space: nowrap;
@@ -108,14 +108,7 @@
       position: relative;
       top: -2px;
     }
-    .avatar{
-      img{
-        width: 72px;
-        height: 72px;
-        border: 1px solid $interline;
-        border-radius: 50%;
-      }
-    }
+    
     .author-info{
       margin-left: 10px;
 
@@ -144,6 +137,51 @@
   @media screen and (max-width:1024px){    
   }
   @media screen and (max-width:768px){
+    .avatar{
+      padding-left: 4%;
+      img{
+        width: 72px;
+        height: 72px;
+        border: 1px solid $interline;
+        border-radius: 50%;
+      }
+    }
+    .flex {
+      position: absolute;
+      top: 102px;
+      border-top: 1px solid $interline;
+      width: 100%;
+      height: 20;
+      display: block;
+      align-items: center;
+      .numbox{
+        width: 120px;
+        margin:2% 2%;
+        height: 55px;
+        float:left;
+        span:nth-child(1){
+          display: block;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 10px
+        }
+        span:nth-child(2){
+          display: block;
+          text-align: center
+        }
+      }
+    }
+  }
+  @media screen and (max-width:375px){
+    .avatar{
+      padding-left: 4%;
+      img{
+        width: 72px;
+        height: 72px;
+        border: 1px solid $interline;
+        border-radius: 50%;
+      }
+    }
     .flex {
       position: absolute;
       top: 102px;
@@ -169,36 +207,19 @@
         }
       }
     }
-  }
-  @media screen and (max-width:375px){
-    .flex {
-      position: absolute;
-      top: 102px;
-      border-top: 1px solid $interline;
-      width: 100%;
-      height: 20;
-      display: block;
-      align-items: center;
-      .numbox{
-        width: 99px;
-        margin:2% 2%;
-        height: 55px;
-        float:left;
-        span:nth-child(1){
-          display: block;
-          text-align: center;
-          margin-top: 10px;
-          margin-bottom: 10px
-        }
-        span:nth-child(2){
-          display: block;
-          text-align: center
-        }
-      }
-    }
 
   }
   @media screen and (max-width:320px){
+    .avatar{
+      padding-left: 4%;
+      img{
+        width: 62px;
+        height:62px;
+        border: 1px solid $interline;
+        border-radius: 50%;
+      }
+    }
+    
     .flex {
       position: absolute;
       top: 102px;
@@ -208,7 +229,7 @@
       display: block;
       align-items: center;
       .numbox{
-        width: 85px;
+        width: 92px;
         margin:2% 2%;
         height: 55px;
         float:left;

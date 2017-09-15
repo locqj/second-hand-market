@@ -60,7 +60,7 @@
 					<img src="../../assets/img/zan1.png" alt="" v-else>
 				  点赞
 				</mt-button>
-				<mt-button type="danger" class="want">I want</mt-button>
+				<mt-button type="danger" class="want">我想要</mt-button>
 	    </mt-tabbar>
 	</div>
 </template>
@@ -266,6 +266,7 @@ export default {
 			width:24%;
 			height:100%;
 			margin-left:26%;
+			font-size: 16px;
 		}
 	}
   .block{

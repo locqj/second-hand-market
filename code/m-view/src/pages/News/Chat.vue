@@ -32,6 +32,7 @@
   @import "../../assets/css/color.scss";
   .goods_title{
 	  position:fixed;
+	  z-index:999;
     left:0;
     top:3%;
   	width:100%;

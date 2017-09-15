@@ -80,7 +80,9 @@
   .logout{
     width: 90%;
     position: absolute;
-    top: 257px;
     left: 5%;
+    margin-top: 10%;
+    margin-bottom: 25%;
+
   }
 </style>
