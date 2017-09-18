@@ -12,19 +12,14 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthController extends Controller
 {   
-    public function test()
-    {   
-        return response()->json('asdas');
-    }
     //登录获取用户的token
     public function authenticate(Request $request)
     {
         // grab credentials from the request
-        $credentials = $request->only('email','password');
+        $credentials = $request->only('name', 'password');
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-
                 return response()->json(['error' => 'invalid_credentials'], 401);
             }
         } catch (JWTException $e) {
@@ -33,20 +28,25 @@ class AuthController extends Controller
         }
         
         // all good so return the token
-        return response()->json(compact('token'));
+        $back_url = 'http://baidu.com';
+        return response()->json(compact('token', 'back_url'));
     }
 
     //用户注册返回token
     public function register(Request $request)
     {
         $newUser = [
-            'email' => $request->get('email'),
             'name' => $request->get('name'),
-            'password' => $request->get('password')
+            'password' => $request->get('password'),
+            'email' => $request->get('email'),
+            'code' => substr(time(), 0, 4).$request->get('name')
         ];
+        $dist_user = User::where('name', $newUser['name'])->exists();
+        if ($dist_user) {
+            return response()->json($this->responseFailed('该用户已存在！', '/user/login'));
+        }
         $user = User::create($newUser);
         $token = JWTAuth::fromUser($user);
-
         return response()->json(compact('token'));
     }
 

@@ -54,11 +54,12 @@ trait Responder{
         ], 200);
     }
 
-    public function responseFailed($message='操作失败')
+    public function responseFailed($message='操作失败', $url='')
     {
         return Response::json([
             'msg' => $message,
-            'code' => 0
+            'code' => 0,
+            'url' => $url
         ], 400);
     }
 
