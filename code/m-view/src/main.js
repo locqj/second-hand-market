@@ -14,7 +14,8 @@ import App from './App'
 Vue.use(MintUI)
 Vue.use(Loading)
 
-axios.defaults.baseURL = 'http://localhost:3000'  // 配置axios默认的baseURL
+// axios.defaults.baseURL = 'http://localhost:8000'  // 配置axios默认的baseURL
+// axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'; //模仿表臭嗨
 axios.interceptors.request.use(function (config) {
   store.dispatch('SHOWLOADING')
   return config

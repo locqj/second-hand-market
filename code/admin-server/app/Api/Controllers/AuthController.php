@@ -12,6 +12,15 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthController extends Controller
 {   
+    public function _initialize()
+    {
+        $this->cross();
+    }
+    public function cross()
+    {
+        header('Access-Control-Allow-Origin:*');
+        header('Access-Control-Allow-Methods:GET,POST,PATCH,PUT,OPTIONS');
+    }
     //登录获取用户的token
     public function authenticate(Request $request)
     {
@@ -28,18 +37,18 @@ class AuthController extends Controller
         }
         
         // all good so return the token
-        $back_url = 'http://baidu.com';
-        return response()->json(compact('token', 'back_url'));
+        $url = 'http://baidu.com';
+        return response()->json(compact('token', 'url'));
     }
 
     //用户注册返回token
     public function register(Request $request)
-    {
+    {   
         $newUser = [
-            'name' => $request->get('name'),
+            'name' => $request->get('username'),
             'password' => $request->get('password'),
             'email' => $request->get('email'),
-            'code' => substr(time(), 0, 4).$request->get('name')
+            'code' => substr(time(), 0, 4).$request->get('username')
         ];
         $dist_user = User::where('name', $newUser['name'])->exists();
         if ($dist_user) {
@@ -47,7 +56,8 @@ class AuthController extends Controller
         }
         $user = User::create($newUser);
         $token = JWTAuth::fromUser($user);
-        return response()->json(compact('token'));
+        $url = 'asd';
+        return response()->json($this->responseData(compact('token', 'url')));
     }
 
     //获取当前的用户

@@ -4,12 +4,12 @@
     <h3 class="text-center">注册账号</h3>
     <div class="form-field">
       <p>
-        <i class="iconfont icon-shouji"></i>
-        <input type="text" placeholder="手机号" v-model="userInfo.phone">
+        <i class="iconfont icon-yonghu"></i>
+        <input type="text" placeholder="用户名" v-model="userInfo.username">
       </p>
       <p>
         <i class="iconfont icon-yonghu"></i>
-        <input type="text" placeholder="用户名" v-model="userInfo.username">
+        <input type="text" placeholder="邮箱" v-model="userInfo.email">
       </p>
       <p>
         <i class="iconfont icon-unie614"></i>
@@ -20,10 +20,14 @@
         <input type="password" placeholder="确认密码" v-model="userInfo.sure_password">
       </p>
       <p>
+        <i class="iconfont icon-shouji"></i>
+        <input type="text" placeholder="手机号" v-model="userInfo.phone">
+      </p>
+      <p>
         <i class="iconfont icon-anquan"></i>
         <input type="text" placeholder="请输入短信验证码" v-model="userInfo.code">
-        <mt-button class="verify" @click.native="verify('birthday')">
-          获取验证码
+        <mt-button class="verify" @click.native="verify()" :disabled="disabled || time > 0">
+          {{text_verift}}
         </mt-button>
       <!--   <img src="http://upload.jianshu.io/image_captchas/67b2da98-55b8-43fa-aa33-fe7763fa23f6.jpg" height="45px" width="100px">
  -->      </p>
@@ -51,37 +55,64 @@
     name: '',
     data () {
       return {
-        startDate: new Date('1950-1-1'),
-        endDate: new Date(),
-        yearSlot: [{
-          flex: 1,
-          values: ['请选择', '2001', '2002', '2003', '2004', '2005', '2006', '1990', '1991', '1992', '1993', '1994', '1995'],
-          className: 'slot1'
-        }],
+        time: 0,
         userInfo: {
           phone: '',
           username: '',
           password: '',
           sure_password: '',
+          email: '',
           code: ''
         }
       }
     },
+    props: {
+        second: {
+          type: Number,
+          default: 60
+        },
+        disabled: {
+          type: Boolean,
+          default: false
+        }
+    },
+    computed: {
+      text_verift: function () {
+          return this.time > 0 ? this.time + 's 后重新获取' : '获取验证码';
+      }
+    },
     methods: {
       verify () {
+        this.disabled = true;
+        setTimeout(this.sended, 2000);
         Toast({
           message: '已发送',
           position: 'bottom'
         })
       },
+      sended() {
+        this.run();
+        this.disabled = false;
+      },
+      run: function () {
+        this.time = this.second
+        this.timer()
+      },
+      timer: function () {
+        if (this.time > 0) {
+          this.time--
+          setTimeout(this.timer, 1000)
+        }
+      },
       register () {
         const phoneReg = /^1[34578]\d{9}$/
-        if (!this.userInfo.phone || !phoneReg.test(this.userInfo.phone)) {
-          Toast({
-            message: '手机格式不正确',
-            iconClass: 'iconfont icon-cuowu'
-          })
-        } else if (!this.userInfo.username) {
+        // if (!this.userInfo.phone || !phoneReg.test(this.userInfo.phone)) {
+        //   Toast({
+        //     message: '手机格式不正确',
+        //     iconClass: 'iconfont icon-cuowu'
+        //   })
+        // } else 
+        if (!this.userInfo.username) {
           Toast({
             message: '用户名不能为空',
             iconClass: 'iconfont icon-cuowu'
@@ -102,28 +133,26 @@
             iconClass: 'iconfont icon-cuowu'
           })
         } else {
-          this.$http.get(`http://localhost:3000/user?phone=${this.userInfo.phone}`)
-            .then(function (res) {
-              if (res.data[0]) {
+          this.$http.post('test/api/user/register', this.userInfo)
+            .then((res) => {
+              let data = res.data.original
+              if (data.code == 0) {
                 Toast({
-                  message: '该手机已被注册',
-                  iconClass: 'iconfont icon-cuowu'
+                  message: data.msg,
+                  iconClass: 'iconfont icon-zhengque'
                 })
-                return
-              } else {
-                this.$http.post('http://localhost:3000/user', this.userInfo)
-                  .then((res) => {
-                    Toast({
-                      message: '注册成功',
-                      iconClass: 'iconfont icon-zhengque'
-                    })
-                    const storage = window.localStorage
-                    const userInfo = res.data
-                    storage.setItem('userInfo', JSON.stringify(userInfo))
-                    this.$router.push({ path: 'home' })
-                  })
+                //window.setTimeout(window.location.reload(), 1000);
               }
-            })
+              Toast({
+                message: '注册成功',
+                iconClass: 'iconfont icon-zhengque'
+              })
+              window.location.href = data.url
+              // const storage = window.localStorage
+              // const userInfo = res.data
+              // storage.setItem('userInfo', JSON.stringify(userInfo))
+              // this.$router.push({ path: 'home' })
+          })
         }
       }
     }
@@ -184,7 +213,7 @@
         right:1px;
         top:1px;
         height: 46px;
-        width: 30%
+        width: 38%
       }
       p i{
         position: absolute;
