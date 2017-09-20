@@ -1,6 +1,6 @@
 <template>
 	<div class="imgbox">
-		<uploader :src="'/api/imgs'"></uploader>
+		<uploader :src="'test/api/test'"></uploader>
 	</div>
 </template>
 <script>

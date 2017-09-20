@@ -51,6 +51,7 @@
 
 <script>
   import {Toast} from 'mint-ui'
+
   export default {
     name: '',
     data () {
@@ -106,13 +107,12 @@
       },
       register () {
         const phoneReg = /^1[34578]\d{9}$/
-        // if (!this.userInfo.phone || !phoneReg.test(this.userInfo.phone)) {
-        //   Toast({
-        //     message: '手机格式不正确',
-        //     iconClass: 'iconfont icon-cuowu'
-        //   })
-        // } else 
-        if (!this.userInfo.username) {
+        if (!this.userInfo.phone || !phoneReg.test(this.userInfo.phone)) {
+          Toast({
+            message: '手机格式不正确',
+            iconClass: 'iconfont icon-cuowu'
+          })
+        } else if (!this.userInfo.username) {
           Toast({
             message: '用户名不能为空',
             iconClass: 'iconfont icon-cuowu'
@@ -136,18 +136,20 @@
           this.$http.post('test/api/user/register', this.userInfo)
             .then((res) => {
               let data = res.data.original
-              if (data.code == 0) {
-                Toast({
-                  message: data.msg,
-                  iconClass: 'iconfont icon-zhengque'
-                })
-                //window.setTimeout(window.location.reload(), 1000);
+              if (data.code === 0) {
+                let instance = Toast(data.msg)
+                setTimeout(() => {
+                  instance.close()
+                  // window.location.reload()
+                }, 2000)
+              } else {
+                let instance = Toast('注册成功！')
+                setTimeout(() => {
+                  instance.close()
+                  // this.$router.push({ path: data.data.url })
+                  window.location.href = data.data.url
+                }, 2000)
               }
-              Toast({
-                message: '注册成功',
-                iconClass: 'iconfont icon-zhengque'
-              })
-              window.location.href = data.url
               // const storage = window.localStorage
               // const userInfo = res.data
               // storage.setItem('userInfo', JSON.stringify(userInfo))

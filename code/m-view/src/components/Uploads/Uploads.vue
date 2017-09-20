@@ -51,24 +51,41 @@ export default {
         console.warn('no file!')
         return
       }
-      const formData = new FormData()
+      let formData = new FormData()
+      
       this.files.forEach((item) => {
-        formData.append(item.name, item.file)
+        let file = item.file
+        console.log(file)
+        formData.append('photo', file)
       })
-      const xhr = new XMLHttpRequest()
-      xhr.upload.addEventListener('progress', this.uploadProgress, false)
-      xhr.open('POST', this.src, true)
-      this.uploading = true
-      xhr.send(formData)
-      xhr.onload = () => {
-        this.uploading = false
-        if (xhr.status === 200 || xhr.status === 304) {
-          this.status = 'finished'
-          console.log('upload success!')
-        } else {
-          console.log(`error：error code ${xhr.status}`)
+
+
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
       }
+
+      // console.log(formData)
+      this.$http.post(this.src, formData, config)
+      .then((res) => {
+          console.log(res)
+      })
+
+      // const xhr = new XMLHttpRequest()
+      // xhr.upload.addEventListener('progress', this.uploadProgress, false)
+      // xhr.open('POST', this.src, true)
+      // this.uploading = true
+      // xhr.send(formData)
+      // xhr.onload = () => {
+      //   this.uploading = false
+      //   if (xhr.status === 200 || xhr.status === 304) {
+      //     this.status = 'finished'
+      //     console.log('upload success!')
+      //   } else {
+      //     console.log(`error：error code ${xhr.status}`)
+      //   }
+      // }
     },
     finished () {
       this.files = []

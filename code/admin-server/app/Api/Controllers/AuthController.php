@@ -5,7 +5,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Api\Traits\Responder;
 use JWTAuth;
-
+use DB;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -51,12 +51,18 @@ class AuthController extends Controller
             'code' => substr(time(), 0, 4).$request->get('username')
         ];
         $dist_user = User::where('name', $newUser['name'])->exists();
+        $dist_phone = DB::table('user_message')
+            ->where('phone', $request->get('phone'))
+            ->where('verity_num', $request->get('code'))
+            ->exists();
         if ($dist_user) {
             return response()->json($this->responseFailed('该用户已存在！', '/user/login'));
+        } elseif (!$dist_phone) {
+            return response()->json($this->responseFailed('验证码有误，请重试', '/user/login'));
         }
         $user = User::create($newUser);
         $token = JWTAuth::fromUser($user);
-        $url = 'asd';
+        $url = '/perfect_register';
         return response()->json($this->responseData(compact('token', 'url')));
     }
 
