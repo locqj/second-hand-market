@@ -14,18 +14,12 @@
         </mt-radio>
       </p>
       <p>
-        <div class="page-picker-wrapper">
-          <mt-picker :slots="addressSlots" @change="onAddressChange" :visible-item-count="5">
-            
-          </mt-picker>
-        </div>
-        <p class="page-picker-desc">地址: {{ addressProvince }} {{ addressCity }}</p>
+        <mt-cell class="upload-title" title="选择学校">
+          <span></span>
+        </mt-cell>
+        <SelectSchool v-on="{school: getschool, province_school: getprovince}"></SelectSchool>
       </p>
-      <p>
-        <i class="iconfont icon-shouji"></i>
-        <input type="text" placeholder="请输入学校" v-model="userInfo.school">
-      </p>
-      
+      <p>{{ userInfo.school }}-------{{ userInfo.school_province }}</p>
       <p>
         <i class="iconfont icon-shouji"></i>
         <input type="text" placeholder="请输入学院" v-model="userInfo.department">
@@ -64,6 +58,8 @@
 
 <script>
   import Uploads from '@/components/Uploads/Index.vue'
+  import SelectSchool from './SelectSchool.vue'
+
   import { Toast, Radio } from 'mint-ui';
   export default {
     name: '',
@@ -84,6 +80,7 @@
         startDate: new Date('1950-1-1'),
         endDate: new Date(),
         userInfo: {
+          school_province: '',
           school: '',
           department: '',
           birthday: '',
@@ -95,6 +92,13 @@
     },
     
     methods: {
+      getschool (data) {
+        this.userInfo.school = data
+        console.log(data)
+      },
+      getprovince (data) {
+        this.userInfo.school_province = data
+      },
       open (picker) {
         this.$refs[picker].open()
       },
@@ -157,7 +161,8 @@
       }
     },
     components: {
-      Uploads
+      Uploads,
+      SelectSchool
     }
   }
 </script>
