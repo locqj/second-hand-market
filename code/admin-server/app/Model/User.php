@@ -38,15 +38,7 @@ class User extends Authenticatable
     public function setCodeAttribute($name){
         $this->attributes['code'] = $name;
     }
-
-    // public function add($data){
-    // 	$this->name = $data['name'];
-    // 	$this->code = $data['name'];
-    // 	$this->pwd = bcrypt($data['pwd']);
-    // 	if ($this->save()) {
-    // 		return $this;
-    // 	}
-    // }
+    
     public function distUser($name){
     	return $this->where('name', $name)->exists();
     }

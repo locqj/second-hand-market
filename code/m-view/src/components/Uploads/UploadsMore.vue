@@ -26,7 +26,6 @@
     </div>
 </template>
 <script>
-import {Toast} from 'mint-ui'
 export default {
   props: {
     src: {
@@ -58,7 +57,6 @@ export default {
         let file = item.file
         console.log(file)
         formData.append('photo', file)
-        formData.append('user_code', this.$route.query.code)
       })
 
 
@@ -71,12 +69,9 @@ export default {
       // console.log(formData)
       this.$http.post(this.src, formData, config)
       .then((res) => {
-        let data = res.data.original        
-        Toast({
-          message: data.msg,
-        })
-        this.uploading = false
-        this.status = 'finished'
+          this.uploading = false
+          this.status = 'finished'
+          console.log(res)
       })
 
       // const xhr = new XMLHttpRequest()

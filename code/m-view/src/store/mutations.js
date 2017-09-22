@@ -6,6 +6,7 @@ import axios from 'axios'
 
 const state = {
   index_article: [],
+  address: [],
   selected: '/home',
   footerHide: true,
   headerHide: true,

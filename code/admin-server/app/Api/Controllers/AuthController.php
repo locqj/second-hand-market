@@ -44,25 +44,26 @@ class AuthController extends Controller
     //用户注册返回token
     public function register(Request $request)
     {   
-        $newUser = [
+
+        $new_user = [
             'name' => $request->get('username'),
             'password' => $request->get('password'),
             'email' => $request->get('email'),
-            'code' => substr(time(), 0, 4).$request->get('username')
+            'code' => 'C'.User::count()
         ];
-        $dist_user = User::where('name', $newUser['name'])->exists();
+        $dist_user = User::where('name', $new_user['name'])->exists();
         $dist_phone = DB::table('user_message')
             ->where('phone', $request->get('phone'))
             ->where('verity_num', $request->get('code'))
             ->exists();
         if ($dist_user) {
-            return response()->json($this->responseFailed('该用户已存在！', '/user/login'));
+            return response()->json($this->responseFailed('该用户已存在！'));
         } elseif (!$dist_phone) {
-            return response()->json($this->responseFailed('验证码有误，请重试', '/user/login'));
+            return response()->json($this->responseFailed('验证码有误，请重试'));
         }
-        $user = User::create($newUser);
+        $user = User::create($new_user);
         $token = JWTAuth::fromUser($user);
-        $url = '/perfect_register';
+        $url = '/perfect_register?code='.$user->code.'&phone='.$request->get('phone');
         return response()->json($this->responseData(compact('token', 'url')));
     }
 

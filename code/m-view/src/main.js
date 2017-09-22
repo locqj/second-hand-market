@@ -8,14 +8,14 @@ import axios from 'axios'
 import '@/assets/js/resize.js'
 import store from './store'
 import Loading from './components/Loading'
-
 import App from './App'
 
 Vue.use(MintUI)
 Vue.use(Loading)
 
 // axios.defaults.baseURL = 'http://localhost:8000'  // 配置axios默认的baseURL
-// axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'; //模仿表臭嗨
+// axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'; //都变成string了臭嗨
+
 axios.interceptors.request.use(function (config) {
   store.dispatch('SHOWLOADING')
   return config
@@ -28,6 +28,7 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
   return Promise.reject(error)
 })
+
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false

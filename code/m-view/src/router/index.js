@@ -11,6 +11,8 @@ import MyStore from '@/pages/My/MyStore.vue'
 import MyBuy from '@/pages/My/MyBuy.vue'
 import Login from '@/pages/Login/Login.vue'
 import Register from '@/pages/Register/Register.vue'
+import TestPicker from '@/pages/Register/TestPicker.vue'
+
 import PerfectRegister from '@/pages/Register/PerfectRegister.vue'
 import VerifyUser from '@/pages/Register/VerifyUser.vue'
 import Index from '@/pages/Index/Index.vue'
@@ -53,5 +55,7 @@ export default new Router({
     { path: '/', redirect: '/index' },
     { path: '*', redirect: '/index' },
     { path: '/index', component: Index }, // design首页
+    { path: '/picker', component: TestPicker }, // design首页
+
   ]
 })

@@ -21,7 +21,8 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Api\Controllers'], function ($api) {
         $api->post('user/login','AuthController@authenticate');
         $api->post('user/register','AuthController@register');
-		$api->post('test','RegisterController@test');
+        $api->post('user/userdetail', 'RegisterController@userDetail');
+		$api->post('uploadheadimg','RegisterController@uploadHeadImg');
     });
 
     $api->group(['namespace' => 'App\Api\Controllers', 'middleware'=>'jwt.auth'],function ($api){

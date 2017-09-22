@@ -7,10 +7,25 @@
     <Uploads></Uploads>
     <div class="form-field">
       <p>
+        <mt-radio
+          title="性别"
+          v-model="userInfo.sex"
+          :options="this.sexoption">
+        </mt-radio>
+      </p>
+      <p>
+        <div class="page-picker-wrapper">
+          <mt-picker :slots="addressSlots" @change="onAddressChange" :visible-item-count="5">
+            
+          </mt-picker>
+        </div>
+        <p class="page-picker-desc">地址: {{ addressProvince }} {{ addressCity }}</p>
+      </p>
+      <p>
         <i class="iconfont icon-shouji"></i>
         <input type="text" placeholder="请输入学校" v-model="userInfo.school">
       </p>
-
+      
       <p>
         <i class="iconfont icon-shouji"></i>
         <input type="text" placeholder="请输入学院" v-model="userInfo.department">
@@ -49,11 +64,21 @@
 
 <script>
   import Uploads from '@/components/Uploads/Index.vue'
-  import { Toast } from 'mint-ui';
+  import { Toast, Radio } from 'mint-ui';
   export default {
     name: '',
     data () {
       return {
+        sexoption: [
+        {
+          label: '男',
+          value: 1,
+        },
+        {
+          label: '女',
+          value: 2
+        },
+        ],
         birthday: new Date(),
         showbirthday: '',
         startDate: new Date('1950-1-1'),
@@ -62,11 +87,13 @@
           school: '',
           department: '',
           birthday: '',
-          entry_year: ''
-
+          entry_year: '',
+          sex: '',
+          phone: this.$route.query.phone
         }
       }
     },
+    
     methods: {
       open (picker) {
         this.$refs[picker].open()
@@ -92,7 +119,12 @@
         })
       },
       register () {
-        if (!this.userInfo.school) {
+        if (!this.userInfo.sex) {
+          Toast({
+            message: '请选择性别',
+            iconClass: 'iconfont icon-cuowu'
+          })
+        } else if (!this.userInfo.school) {
           Toast({
             message: '请输入学校',
             iconClass: 'iconfont icon-cuowu'
@@ -113,28 +145,14 @@
             iconClass: 'iconfont icon-cuowu'
           })
         } else {
-          this.$http.get(`http://localhost:3000/user?phone=${this.userInfo.phone}`)
-            .then(function (res) {
-              if (res.data[0]) {
+            this.$http.post('test/api/user/userdetail', this.userInfo)
+              .then((res) => {
                 Toast({
-                  message: '该手机已被注册',
-                  iconClass: 'iconfont icon-cuowu'
+                  message: '注册成功',
+                  iconClass: 'iconfont icon-zhengque'
                 })
-                return
-              } else {
-                this.$http.post('http://localhost:3000/user', this.userInfo)
-                  .then((res) => {
-                    Toast({
-                      message: '注册成功',
-                      iconClass: 'iconfont icon-zhengque'
-                    })
-                    const storage = window.localStorage
-                    const userInfo = res.data
-                    storage.setItem('userInfo', JSON.stringify(userInfo))
-                    this.$router.push({ path: 'home' })
-                  })
-              }
-            })
+
+              })
         }
       }
     },
