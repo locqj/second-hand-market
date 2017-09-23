@@ -4,26 +4,24 @@
     <mt-cell class="upload-title" title="上传头像">
       <span></span>
     </mt-cell>
-    <Uploads></Uploads>
+    <Uploads :url="'/test/api/uploadheadimg/1'"></Uploads>
+    <mt-cell class="upload-title" title="选择性别">
+      <span></span>
+    </mt-cell>
     <div class="form-field">
       <p>
         <mt-radio
-          title="性别"
           v-model="userInfo.sex"
           :options="this.sexoption">
         </mt-radio>
       </p>
       <p>
-        <mt-cell class="upload-title" title="选择学校">
+        <mt-cell class="upload-title" title="选择学校系别">
           <span></span>
         </mt-cell>
-        <SelectSchool v-on="{school: getschool, province_school: getprovince}"></SelectSchool>
+        <SelectSchool v-on="{school: getschool, province_school: getprovince, major: getmajor}"></SelectSchool>
       </p>
-      <p>{{ userInfo.school }}-------{{ userInfo.school_province }}</p>
-      <p>
-        <i class="iconfont icon-shouji"></i>
-        <input type="text" placeholder="请输入学院" v-model="userInfo.department">
-      </p>
+      
       <p>
         <i class="iconfont icon-shouji"></i>
         <input type="number" placeholder="请输入学年份" v-model="userInfo.entry_year">
@@ -59,22 +57,11 @@
 <script>
   import Uploads from '@/components/Uploads/Index.vue'
   import SelectSchool from './SelectSchool.vue'
-
   import { Toast, Radio } from 'mint-ui';
   export default {
     name: '',
     data () {
       return {
-        sexoption: [
-        {
-          label: '男',
-          value: 1,
-        },
-        {
-          label: '女',
-          value: 2
-        },
-        ],
         birthday: new Date(),
         showbirthday: '',
         startDate: new Date('1950-1-1'),
@@ -86,11 +73,11 @@
           birthday: '',
           entry_year: '',
           sex: '',
-          phone: this.$route.query.phone
+          phone: this.$route.query.phone,
+          code: this.$route.query.code
         }
       }
     },
-    
     methods: {
       getschool (data) {
         this.userInfo.school = data
@@ -98,6 +85,9 @@
       },
       getprovince (data) {
         this.userInfo.school_province = data
+      },
+      getmajor (data) {
+        this.userInfo.department = data
       },
       open (picker) {
         this.$refs[picker].open()
@@ -149,16 +139,31 @@
             iconClass: 'iconfont icon-cuowu'
           })
         } else {
-            this.$http.post('test/api/user/userdetail', this.userInfo)
+            this.$http.post('/test/api/user/userdetail', this.userInfo)
               .then((res) => {
-                Toast({
-                  message: '注册成功',
-                  iconClass: 'iconfont icon-zhengque'
-                })
+                if (res.data.original.code === 1) {
+                  let instance = Toast('信息完善!')
+                  setTimeout(() => {
+                    instance.close()
+                    window.location.href = '/register/verify?code='+this.userInfo.code
+                  }, 2000)
+                }
 
               })
         }
       }
+    },
+    created() {
+      this.sexoption = [
+        {
+          label: '男',
+          value: 1,
+        },
+        {
+          label: '女',
+          value: 2
+        },
+      ]
     },
     components: {
       Uploads,
@@ -260,6 +265,9 @@
       font-size: $fontSize2;
       background-color: #F5F5F5;
       outline: none;
+    }
+    .footer{
+      z-index:999;
     }
   }
 </style>

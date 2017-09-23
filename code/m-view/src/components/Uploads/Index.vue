@@ -1,13 +1,13 @@
 <template>
 	<div class="imgbox">
-		<uploader :src="'test/api/uploadheadimg'"></uploader>
+		<uploader :src="url" ></uploader>
 	</div>
 </template>
 <script>
 	import uploader from './Uploads.vue'
 	export default {
 		name: '',
-		props: ['uploadurl'],
+		props: ['url'],
 		data () {
 			return {}
 		},

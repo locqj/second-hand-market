@@ -63,7 +63,7 @@ class AuthController extends Controller
         }
         $user = User::create($new_user);
         $token = JWTAuth::fromUser($user);
-        $url = '/perfect_register?code='.$user->code.'&phone='.$request->get('phone');
+        $url = '/register/perfect_register?code='.$user->code.'&phone='.$request->get('phone');
         return response()->json($this->responseData(compact('token', 'url')));
     }
 
