@@ -23,11 +23,24 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password'
+        'password', 'id', 'creared_at', 'updated_at'
     ];
 
     //在数据保存到数据库之前会对密码进行一个预处理
-    public function setPasswordAttribute($password){
+    public function setPasswordAttribute($password) {
         $this->attributes['password'] = \Hash::make($password);
+    }
+
+    public function getUserCode($array) {
+        return $this->where('name', $array['name'])->select('code')->first();
+    }
+
+    public function distUser($name) {
+        return $this->where('name', $name)->exists();
+    }
+
+    public function userDetail()
+    {
+        return $this->hasOne('App\Model\UserDetail', 'user_code', 'code');
     }
 }

@@ -2,8 +2,10 @@
 namespace App\Api\Controllers;
 
 use App\User;
+use App\Model\UserDetail;
 use Illuminate\Http\Request;
 use App\Api\Traits\Responder;
+use Redirect;
 use JWTAuth;
 use DB;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -21,7 +23,11 @@ class AuthController extends Controller
         header('Access-Control-Allow-Origin:*');
         header('Access-Control-Allow-Methods:GET,POST,PATCH,PUT,OPTIONS');
     }
-    //登录获取用户的token
+    /**
+     * [authenticate 登录验证]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function authenticate(Request $request)
     {
         // grab credentials from the request
@@ -29,16 +35,19 @@ class AuthController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
+                return response()->json($this->responsePwdError());
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-        
+        }        
         // all good so return the token
-        $url = 'http://baidu.com';
-        return response()->json(compact('token', 'url'));
+        // return $credentials;
+        $user = new User();
+        $user_info = new UserDetail();
+        $user_code = $user->getUserCode($credentials);
+        $user = $user_info->userInfo($user_code->code);
+        return response()->json($this->responseData(compact('token', 'user')));
     }
 
     //用户注册返回token
@@ -66,12 +75,10 @@ class AuthController extends Controller
         $url = '/register/perfect_register?code='.$user->code.'&phone='.$request->get('phone');
         return response()->json($this->responseData(compact('token', 'url')));
     }
-
     //获取当前的用户
-    public function getAuthenticatedUser()
+    public function getAuthenticatedUser($token)
     {
         try {
-
             if (! $user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }

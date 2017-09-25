@@ -5,15 +5,15 @@
     <div class="form-field">
       <p>
         <i class="iconfont icon-yonghu"></i>
-        <input type="text" placeholder="手机号" v-model="phone">
+        <input type="text" placeholder="用户名" v-model="userInfo.name">
       </p>
       <p>
         <i class="iconfont icon-unie614"></i>
-        <input type="password" placeholder="密码" v-model="password">
+        <input type="password" placeholder="密码" v-model="userInfo.password">
       </p>
       <p>
         <i class="iconfont icon-anquan"></i>
-        <input type="text" placeholder="请输入图片中的文字" v-model="code">
+        <input type="text" placeholder="请输入图片中的文字" v-model="userInfo.code">
         <img src="http://upload.jianshu.io/image_captchas/67b2da98-55b8-43fa-aa33-fe7763fa23f6.jpg" height="45px" width="100px">
       </p>
     </div>
@@ -39,47 +39,52 @@
     name: '',
     data () {
       return {
-        phone: '',
-        password: '',
-        code: ''
+        userInfo: {
+          name: '',
+          password: '',
+          code: ''
+        }
       }
     },
     methods: {
       login () {
         const storage = window.localStorage
-        const userInfo = storage.getItem('userInfo')
-        if (!userInfo) {
-          const phoneReg = /^1[34578]\d{9}$/
-          if (!this.phone || !phoneReg.test(this.phone)) {
-            Toast({
-              message: '请输入正确的手机号',
-              iconClass: 'iconfont icon-cuowu'
+        //const userInfo = storage.getItem('userInfo')
+        if (!this.userInfo.name) {
+          Toast({
+            message: '用户名不能为空',
+            iconClass: 'iconfont icon-cuowu'
+          })
+        } else if (!this.userInfo.password) {
+          Toast({
+            message: '密码不能为空',
+            iconClass: 'iconfont icon-cuowu'
+          })
+        } else {
+          this.$http.post('/test/api/user/login', this.userInfo)
+            .then((res) => {
+              const data = res.data.original
+              if (data.code) {
+                const userInfo = data.data.user
+                const token = data.data.token
+                console.log(data)
+                console.log(userInfo)
+                console.log(token)
+                storage.setItem('userInfo', JSON.stringify(userInfo))
+                storage.setItem('token', token)
+                Toast({
+                  message: '登录成功',
+                  iconClass: 'iconfont icon-zhengque'
+                })
+                this.$router.push({ path: 'home' })
+              } else {
+                Toast({
+                  message: '用户名或密码错误',
+                  iconClass: 'iconfont icon-cuowu'
+                })
+              }
             })
-          } else if (!this.password) {
-            Toast({
-              message: '密码不能为空',
-              iconClass: 'iconfont icon-cuowu'
-            })
-          } else {
-            this.$http.get(`http://localhost:3000/user?phone=${this.phone}&password=${this.password}`)
-              .then((res) => {
-                if (res.data[0]) {
-                  Toast({
-                    message: '登录成功',
-                    iconClass: 'iconfont icon-zhengque'
-                  })
-                  const userInfo = res.data
-                  storage.setItem('userInfo', JSON.stringify(userInfo))
-                  this.$router.push({ path: 'home' })
-                } else {
-                  Toast({
-                    message: '用户名或密码错误',
-                    iconClass: 'iconfont icon-cuowu'
-                  })
-                }
-              })
-          }
-        }
+        } 
       }
     }
   }
@@ -103,7 +108,7 @@
       color: $blackColor;
     }
     .form-field{
-      margin-top: 10px;
+      margin-top: 11%;
 
       p{
         position: relative;
@@ -149,7 +154,7 @@
       outline: none;
     }
     button{
-      margin-top: 20px;
+      margin-top: 22%;
     }
 
     .go-register{

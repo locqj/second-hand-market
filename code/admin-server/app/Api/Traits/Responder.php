@@ -62,13 +62,21 @@ trait Responder{
         ], 400);
     }
 
-    public function responseFailedUrl($message='操作失败', $url='')
+    // public function responseFailedUrl($message='操作失败', $url='')
+    // {
+    //     return Response::json([
+    //         'msg' => $message,
+    //         'code' => 0,
+    //         'url' => $url
+    //     ], 400);
+    // }
+
+    public function responsePwdError($message='用户名或密码错误')
     {
         return Response::json([
             'msg' => $message,
             'code' => 0,
-            'url' => $url
-        ], 400);
+        ], 401);
     }
 
     public function responseError($message='未知错误')

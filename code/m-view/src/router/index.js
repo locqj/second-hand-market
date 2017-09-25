@@ -25,34 +25,66 @@ import Buy from '@/pages/Buy/Index.vue'
 
 Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
-  scrollBehavior: () => ({
-    y: 0
-  }),
-  routes: [
-    { path: '/home', component: Home },
-    { path: '/article/:id', component: Article },
-    { path: '/write', component: Write },
-    { path: '/my/', component: My },
-    { path: '/my/post', component: MyPost },
-    { path: '/my/sold', component: MySold },
-    { path: '/my/buy', component: MyBuy },
-    { path: '/my/like', component: MyLike },
-    { path: '/my/store', component: MyStore},
-    { path: '/login', component: Login },
-    { path: '/register', component: Register },
-    { path: '/register/perfect_register', component: PerfectRegister },
-    { path: '/register/verify', component: VerifyUser },
-    { path: '/pool', component: Pool },
-    { path: '/pool/users', component: PoolUser },
-    { path: '/news', component: News },
-    { path: '/news/chat', component: Chat },
-    { path: '/send', component: Send },
-    { path: '/buy', component: Buy },
-    { path: '/', redirect: '/index' },
-    { path: '*', redirect: '/index' },
-    { path: '/index', component: Index }, // design首页
+// export default new Router({
+//   mode: 'history',
+//   scrollBehavior: () => ({
+//     y: 0
+//   }),
 
-  ]
+    routes: [
+        { path: '/home', component: Home },
+        { path: '/article/:id', component: Article },
+        { path: '/write', component: Write },
+        { path: '/my/', component: My },
+        { path: '/my/post', component: MyPost },
+        { path: '/my/sold', component: MySold },
+        { path: '/my/buy', component: MyBuy },
+        { path: '/my/like', component: MyLike },
+        { path: '/my/store', component: MyStore},
+        { path: '/login', component: Login },
+        { path: '/register', component: Register },
+        { path: '/register/perfect_register', component: PerfectRegister },
+        { path: '/register/verify', component: VerifyUser },
+        { path: '/pool', component: Pool },
+        { path: '/pool/users', component: PoolUser },
+        { path: '/news', component: News },
+        { path: '/news/chat', component: Chat },
+        { path: '/send', component: Send },
+        { path: '/buy', component: Buy },
+        { path: '/', redirect: '/index' },
+        { path: '*', redirect: '/index' },
+        { path: '/index', component: Index, 
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }, 
+        }, // design首页
+
+    ];
+
+      // 页面刷新时，重新赋值token
+    if (window.localStorage.getItem('token')) {
+        store.commit(types.LOGIN, window.localStorage.getItem('token'))
+    }
+
+    const router = new VueRouter({
+        routes
+    });
+
+    router.beforeEach((to, from, next) => {
+        if (to.matched.some(r => r.meta.requireAuth)) {
+            if (store.state.token) {
+                next();
+            }
+            else {
+                next({
+                    path: '/login',
+                    query: {redirect: to.fullPath}
+                })
+            }
+        }
+        else {
+            next();
+        }
 })
+
+// })

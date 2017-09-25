@@ -15,7 +15,7 @@ Vue.use(Loading)
 
 // axios.defaults.baseURL = 'http://localhost:8000'  // 配置axios默认的baseURL
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'; //都变成string了臭嗨
-
+/*axios 拦截器*/
 axios.interceptors.request.use(function (config) {
   store.dispatch('SHOWLOADING')
   return config
