@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/5/3.
  */
-import { GET_INDEX_ARTICLE, LOADMORE_ARTICLE, ROUTER_CHANGE, HIDELOADING, SHOWLOADING } from './types'
+import { GET_INDEX_ARTICLE, LOADMORE_ARTICLE, ROUTER_CHANGE, HIDELOADING, SHOWLOADING, DOLOGIN, DOLOGOUT, DOTITLE } from './types'
 import axios from 'axios'
 
 const state = {
@@ -10,8 +10,12 @@ const state = {
   selected: '/home',
   footerHide: true,
   headerHide: true,
-  showLoad: false
+  showLoad: false,
+  user: {},
+  token: null,
+  title: ''
 }
+
 
 const mutations = {
   [GET_INDEX_ARTICLE] (state) {
@@ -50,6 +54,18 @@ const mutations = {
   },
   [SHOWLOADING] (state) {
     state.showLoad = true
+  },
+  [DOLOGIN] (state, data) {
+      localStorage.token = data
+      state.token = data
+      state.user = localStorage.userInfo
+  },
+  [DOLOGOUT] (state) {
+      localStorage.removeItem('token')
+      state.token = null
+  },
+  [DOTITLE] (state, data) {
+      state.title = data
   }
 }
 
@@ -68,6 +84,9 @@ const getters = {
   },
   showLoad (state) {
     return state.showLoad
+  },
+  token (state) {
+    return state.token
   }
 }
 

@@ -1,5 +1,7 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import axios from 'axios'
+import store from '../store'
+import VueRouter from 'vue-router'
 import Home from '@/pages/Home/Home.vue'
 import Article from '@/pages/Article/Index.vue'
 import Write from '@/pages/Write/Write.vue'
@@ -23,19 +25,25 @@ import Buy from '@/pages/Buy/Index.vue'
 
 
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-// export default new Router({
-//   mode: 'history',
-//   scrollBehavior: () => ({
-//     y: 0
-//   }),
+export default new VueRouter({
+  mode: 'history',
+  scrollBehavior: () => ({
+    y: 0
+  }),
 
     routes: [
         { path: '/home', component: Home },
         { path: '/article/:id', component: Article },
         { path: '/write', component: Write },
-        { path: '/my/', component: My },
+        { 
+            path: '/my/',
+            component: My,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+         },
         { path: '/my/post', component: MyPost },
         { path: '/my/sold', component: MySold },
         { path: '/my/buy', component: MyBuy },
@@ -45,46 +53,52 @@ Vue.use(Router)
         { path: '/register', component: Register },
         { path: '/register/perfect_register', component: PerfectRegister },
         { path: '/register/verify', component: VerifyUser },
-        { path: '/pool', component: Pool },
-        { path: '/pool/users', component: PoolUser },
-        { path: '/news', component: News },
-        { path: '/news/chat', component: Chat },
-        { path: '/send', component: Send },
-        { path: '/buy', component: Buy },
-        { path: '/', redirect: '/index' },
-        { path: '*', redirect: '/index' },
-        { path: '/index', component: Index, 
+        { 
+            path: '/pool',
+            component: Pool,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+
+         },
+        { 
+            path: '/pool/users', 
+            component: PoolUser,
             meta: {
                 requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
             }, 
-        }, // design首页
-
-    ];
-
-      // 页面刷新时，重新赋值token
-    if (window.localStorage.getItem('token')) {
-        store.commit(types.LOGIN, window.localStorage.getItem('token'))
-    }
-
-    const router = new VueRouter({
-        routes
-    });
-
-    router.beforeEach((to, from, next) => {
-        if (to.matched.some(r => r.meta.requireAuth)) {
-            if (store.state.token) {
-                next();
+    
+        },
+        { path: '/news', component: News, },
+        { 
+            path: '/news/chat',
+            component: Chat,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
             }
-            else {
-                next({
-                    path: '/login',
-                    query: {redirect: to.fullPath}
-                })
+
+         },
+        { 
+            path: '/send',
+            component: Send,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+
+         },
+        { 
+            path: '/buy', component: Buy,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+        },
+        { path: '/', redirect: '/index' },
+        { path: '*', redirect: '/index' },
+        { 
+            path: '/index', component: Index, 
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
             }
         }
-        else {
-            next();
-        }
-})
-
-// })
+    ]
+});

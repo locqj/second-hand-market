@@ -67,16 +67,13 @@
               if (data.code) {
                 const userInfo = data.data.user
                 const token = data.data.token
-                console.log(data)
-                console.log(userInfo)
-                console.log(token)
                 storage.setItem('userInfo', JSON.stringify(userInfo))
                 storage.setItem('token', token)
                 Toast({
                   message: '登录成功',
                   iconClass: 'iconfont icon-zhengque'
                 })
-                this.$router.push({ path: 'home' })
+                this.$router.push({ path: 'index' })
               } else {
                 Toast({
                   message: '用户名或密码错误',

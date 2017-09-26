@@ -18,6 +18,15 @@ export default{
   },
   HIDELOADING: ({commit}) => {
     commit(types.HIDELOADING)
+  },
+  DOLOGIN: ({commit}, data) => {
+    commit(types.DOLOGIN, data)
+  },
+  DOLOGOUT: ({commit}) => {
+    commit(types.DOLOGOUT)
+  },
+  DOTITLE: ({commit}) => {
+    commit(types.DOTITLE)
   }
 }
 
