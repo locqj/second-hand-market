@@ -1,8 +1,9 @@
 <template>
 	<div class="container-header">
-    <Header title="我的" url="/index"></Header>
+    <Thead title="我的" url="/index"></Thead>
+
     <div class="container">
-	    <MyHeader :userInfo="userInfo"></MyHeader>
+	    <MyHeader></MyHeader>
     </div>
     <hr>
     <div class="cell">
@@ -12,40 +13,51 @@
       </mt-cell>
       <mt-cell title="我卖出的" is-link to="/my/sold">
         <span>5</span>
-        <img slot="icon" src="../../assets/100x100.png" width="24" height="24">
+        <img slot="icon" src="../../assets/img/book.png" width="24" height="24">
       </mt-cell>
       <mt-cell title="我买到的" is-link to="/my/buy">
         <span>10</span>
-        <img slot="icon" src="../../assets/100x100.png" width="24" height="24">
+        <img slot="icon" src="../../assets/img/book.png" width="24" height="24">
       </mt-cell>
       <mt-cell title="我收藏的" is-link to="/my/store">
         <span>12</span>
-        <img slot="icon" src="../../assets/100x100.png" width="24" height="24">
+        <img slot="icon" src="../../assets/img/book.png" width="24" height="24">
       </mt-cell>
       <mt-cell title="我点赞的" is-link to="/my/like">
         <span>12</span>
         <img slot="icon" src="../../assets/img/goodcontent.png" width="24" height="24">
       </mt-cell>
       <hr class="hr">
-      <mt-button type="danger" size='large' class='logout'>退出登录</mt-button>
+      <mt-button type="danger" size='large' class='logout' @click="logout">退出登录</mt-button>
     </div>
   </div>
 </template>
 <script>
-  import Header from '@/components/Header.vue'
+  import {Toast} from 'mint-ui'
+  import Thead from '@/components/Header.vue'
   import MyHeader from './Header.vue'
   export default {
     data () {
       return {
-        userInfo: {},
-        articles: []
+        userInfo: [],
+        articles: [],
       }
     },
+    methods: {
+      logout() {
+        this.$store.dispatch('DOLOGOUT')
+        Toast({
+          message: '登出成功',
+          iconClass: 'iconfont icon-zhengque'
+        })
+        this.$router.push({ path: 'login' })
 
+      }
+    },
   	components: {
-  		Header,
+  		Thead,
   		MyHeader,
-  	}
+  	},
 	}
 </script>
 <style lang='scss' scoped>

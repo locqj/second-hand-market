@@ -20,7 +20,8 @@ $api->version('v1', function ($api) {
         $api->post('user/login','AuthController@authenticate');
         $api->post('user/register','AuthController@register');
         $api->post('user/userdetail', 'RegisterController@userDetail');
-    		$api->post('uploadheadimg/{status}','RegisterController@uploadHeadImg');
+		$api->post('uploadheadimg/{status}','RegisterController@uploadHeadImg');
+        $api->post('user/addgoods/{user_code}', 'GoodsController@add');
     });
 
     $api->group(['namespace' => 'App\Api\Controllers', 'middleware'=>'jwt.auth'],function ($api){

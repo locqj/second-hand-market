@@ -20,9 +20,6 @@ if (window.localStorage.getItem('token')) {
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.requireAuth)) {
-    console.log(window.localStorage.getItem('token'))
-    console.log(store.state.mutations.token)
-    // console.log(store.state.token+"asdasdasdasdasdsadsadsadsads")
     if (store.state.mutations.token) {
       next();
     } else {

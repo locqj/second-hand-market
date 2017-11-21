@@ -15,7 +15,7 @@ class UserDetail extends Model
      * @var array
      */
     protected $fillable = [
-        'user_code', 'img_head'
+        'user_code'
     ];
     protected $hidden = [
         'id'

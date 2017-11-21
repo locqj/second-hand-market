@@ -143,7 +143,10 @@
                   // window.location.reload()
                 }, 2000)
               } else {
-                let instance = Toast('注册成功！')
+                let instance = Toast({
+                  message: '注册成功',
+                  iconClass: 'iconfont icon-zhengque'
+                })
                 setTimeout(() => {
                   instance.close()
                   // this.$router.push({ path: data.data.url })

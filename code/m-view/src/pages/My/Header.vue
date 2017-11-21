@@ -1,37 +1,33 @@
 <template>
   <header class="person-info clearfix">
-    <div class="avatar pull-left" @click="showCursor">
-      <img src="//upload.jianshu.io/users/upload_avatars/2758117/247d868bf5d6.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="">
+    <div class="avatar pull-left">
+      <img :src="userInfo.img_head" alt="">
     </div>
     <div class="author-info pull-left">
-      <div class="name">{{userInfo.username}}asdasdasdasda</div>
+      <div class="name">{{ userInfo.users.name }}</div>
       <div class="description">
         在探物赚得xxx元
       </div>
       <div class="intros">
         <span>
-          <span class="intros-content" v-if="!edit">
-            {{userInfo.intros?userInfo.intros:'编辑签名'}}
+          <span class="intros-content">
+            asdasd
           </span>
         </span>
       </div>
     </div>
-    <input type="file" accept="image/*;capture=camera" ref="isFile" style="display: none;">
-    <mt-actionsheet
-      :actions="actions"
-      v-model="sheetVisible">
-    </mt-actionsheet>
+    <div class="link_click" @click="rlink"> > </div>
     <div class="flex">
         <div class="numbox">
-          <span class="num">{{starnum}}0</span>
+          <span class="num">0</span>
           <span class="numname">被赞数</span>
         </div>
         <div class="numbox">
-          <span class="num">{{focusnum}}0</span>
+          <span class="num">0</span>
           <span class="numname">关注数</span>
         </div>
         <div class="numbox">
-          <span class="num">{{fannum}}0</span>
+          <span class="num">0</span>
           <span class="numname">粉丝数</span>
         </div>
       </div>
@@ -44,39 +40,24 @@
     data () {
       const _this = this
       return {
+        userInfo: [],
         edit: false,
         intros: '',
         sheetVisible: false,
-        actions: [
-          {
-            name: '更换头像',
-            method () {
-              _this.$refs.isFile.click()
-            }
-          }
-        ]
       }
     },
-    props: ['userInfo'],
+    created () {
+      this.userInfo = this.$store.state.mutations.user
+      this.userInfo = JSON.parse(this.userInfo)
+      if (!this.userInfo.img_head) {
+        this.userInfo.img_head = "//upload.jianshu.io/users/upload_avatars/2758117/247d868bf5d6.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+      } else {
+        this.userInfo.img_head = '/test/storage/'+this.userInfo.img_head
+      }
+    },
     methods: {
-      showCursor () {
-        this.sheetVisible = true
-      },
-      editing () {
-        this.intros = this.userInfo.intros
-        this.edit = true
-      },
-      save () {
-        this.$http.put(`http://localhost:3000/user/${this.userInfo.id}`, {
-          ...this.userInfo
-        }).then((res) => {
-          console.log(res)
-        })
-        this.edit = false
-      },
-      cancel () {
-        this.userInfo.intros = this.intros
-        this.edit = false
+      rlink() {
+        this.$router.push({ path: '/my/info', query: { code: this.userInfo.user_code} })
       }
     }
   }
@@ -84,10 +65,11 @@
 
 <style lang='scss' scoped>
   @import "../../assets/css/color.scss";
+  
   .person-info{
     padding: 5% 0% 5% 0%;
     position: relative;
-    .intros-content{
+    .intros-content {
       display: inline-block;
       width: 100%;
       overflow: hidden;
@@ -129,6 +111,11 @@
       .intros{
         color: $fontColor1;
       }
+    }
+    .link_click{
+      position: absolute;
+      top: 43%;
+      right: 5%;
     }
   }
   @media screen and (min-width:1440px){ /*大于等于1440*/

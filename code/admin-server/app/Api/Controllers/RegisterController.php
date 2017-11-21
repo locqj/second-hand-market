@@ -75,7 +75,8 @@ class RegisterController extends Controller
 		    		$dist_code = UserDetail::where('user_code', $user_info['user_code'])
 		    			->exists();
 		    		if ($dist_code) {
-				        return response()->json($this->responseFailed('请勿重复上头像'));
+		    			$data = UserDetail::where('user_code', $user_info['user_code'])->update(['img_head' => $filename]);
+				        return response()->json($this->responseSuccess('上传成功'));
 		    		}
 			        $user = UserDetail::create($user_info);
 			        return response()->json($this->responseSuccess('上传成功!'));

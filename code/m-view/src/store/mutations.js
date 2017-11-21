@@ -62,6 +62,8 @@ const mutations = {
   },
   [DOLOGOUT] (state) {
       localStorage.removeItem('token')
+      localStorage.removeItem('userInfo')
+      state.user = {}
       state.token = null
   },
   [DOTITLE] (state, data) {

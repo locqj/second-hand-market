@@ -41,5 +41,4 @@
   @import "./assets/css/base.scss";
   @import './assets/css/css.scss';
   
-
 </style>

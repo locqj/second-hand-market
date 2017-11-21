@@ -6,6 +6,7 @@ import Home from '@/pages/Home/Home.vue'
 import Article from '@/pages/Article/Index.vue'
 import Write from '@/pages/Write/Write.vue'
 import My from '@/pages/My/Index.vue'
+import MyInfo from '@/pages/My/My.vue'
 import MyPost from '@/pages/My/MyPost.vue'
 import MySold from '@/pages/My/MySold.vue'
 import MyLike from '@/pages/My/MyLike.vue'
@@ -36,7 +37,13 @@ export default new VueRouter({
     routes: [
         { path: '/home', component: Home },
         { path: '/article/:id', component: Article },
-        { path: '/write', component: Write },
+        { 
+            path: '/write',
+            component: Write,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            } 
+        },
         { 
             path: '/my/',
             component: My,
@@ -44,11 +51,48 @@ export default new VueRouter({
                 requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
             }
          },
-        { path: '/my/post', component: MyPost },
-        { path: '/my/sold', component: MySold },
-        { path: '/my/buy', component: MyBuy },
-        { path: '/my/like', component: MyLike },
-        { path: '/my/store', component: MyStore},
+        { 
+            path: '/my/post',
+            component: MyPost,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+        },
+        { 
+            path: '/my/sold',
+            component: MySold,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            } 
+        },
+        { 
+            path: '/my/buy',
+            component: MyBuy,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+        },
+        { 
+            path: '/my/like',
+            component: MyLike,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+        },
+        { 
+            path: '/my/store',
+            component: MyStore,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+        },
+        { 
+            path: '/my/info',
+            component: MyInfo,
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
+        },
         { path: '/login', component: Login },
         { path: '/register', component: Register },
         { path: '/register/perfect_register', component: PerfectRegister },

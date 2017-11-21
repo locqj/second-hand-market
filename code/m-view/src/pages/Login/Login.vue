@@ -69,11 +69,14 @@
                 const token = data.data.token
                 storage.setItem('userInfo', JSON.stringify(userInfo))
                 storage.setItem('token', token)
-                Toast({
+                let instance = Toast({
                   message: '登录成功',
                   iconClass: 'iconfont icon-zhengque'
                 })
-                this.$router.push({ path: 'index' })
+                setTimeout(() => {
+                  instance.close()
+                  window.location.href = '/index'
+                }, 2000)
               } else {
                 Toast({
                   message: '用户名或密码错误',
